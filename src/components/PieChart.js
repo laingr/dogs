@@ -30,14 +30,15 @@ const Pie = ({ data, numberOfImages }) => {
         data={pieData}
         viewBoxSize={[200,100]}
         center={[100,50]}
-        label={({ dataEntry }) => `${dataEntry.title[0].toUpperCase()+dataEntry.title.slice(1,dataEntry.title.length)} ${Math.round(dataEntry.percentage)} %`}
+        label={({ dataEntry }) => `${dataEntry.title[0].toUpperCase()+dataEntry.title.slice(1,dataEntry.title.length)} ${Math.round(dataEntry.value/numberOfImages*100)} %`}
         labelStyle={(index) => ({
           fill: colors[index],
           fontSize: '5px',
           fontFamily: 'sans-serif',
         })}
         radius={42}
-        labelPosition={112}/>
+        labelPosition={112}
+        startAngle={270}/>
     )};
 
   return (

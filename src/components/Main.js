@@ -26,8 +26,10 @@ const Main = ({ dogList, dispatchGetDogs, numberOfImages, dispatchGetNumberOfIma
 
   return (
     <div>
-      <h1>Below is a breakdown of the 10 breeds of dogs with the most uploaded images</h1>
+      <h1>Below is a breakdown of the 10 breeds of dogs with the most uploaded images!</h1>
       <Pie data={dogList} numberOfImages={numberOfImages}/>
+      <br/>
+      <p>In total, {numberOfImages} images of {dogList.length} dog breeds were counted.</p>
     </div>
     )
 };
