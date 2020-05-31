@@ -1,31 +1,45 @@
 import React, { useEffect } from 'react';
-import { getDogs } from '../redux/actions';
+import { getDogs, getNumberOfImages } from '../redux/actions';
 import { connect } from 'react-redux';
-import {getAllDogs} from '../services/api';
+import { getAllDogs, getDogImage } from '../services/api';
+import Pie from './PieChart';
+import '../styles/App.css';
 
-const Main = ({ dogList, dispatchGetDogs }) => {
+const Main = ({ dogList, dispatchGetDogs, numberOfImages, dispatchGetNumberOfImages }) => {
 
   useEffect(()=>{
     getAllDogs()
       .then(resp => {
         const dogBreeds = Object.keys(resp.message);
         dogBreeds.forEach(breed=>{
-          dispatchGetDogs(breed);
+          getDogImage(breed)
+            .then(imageResponse => {
+              dispatchGetNumberOfImages(imageResponse.message.length);
+              const data = { breed, numberOfImages: imageResponse.message.length};
+              dispatchGetDogs(data);
+            })
+            .catch(error => alert(error))
         });
       })
+      .catch(error => alert(error))
   },[])
 
   return (
-    <div>Hello</div>
-  )
+    <div>
+      <h1>Below is a breakdown of the 10 breeds of dogs with the most uploaded images</h1>
+      <Pie data={dogList} numberOfImages={numberOfImages}/>
+    </div>
+    )
 };
 
 const mapStateToProps = state => ({
-  dogList: state.dogReducer
+  dogList: state.dogsReducer,
+  numberOfImages: state.numberOfImagesReducer,
 });
 
 const mapDispatchToProps = dispatch => ({
-  dispatchGetDogs: data => dispatch(getDogs(data))
+  dispatchGetDogs: data => dispatch(getDogs(data)),
+  dispatchGetNumberOfImages: data => dispatch(getNumberOfImages(data))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
