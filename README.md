@@ -11,7 +11,7 @@ To start, fork the repo and 'git clone' to your computer. Run 'npm install' in t
 
 ## 2. Assignment
 Using React and Redux, there are three major components to this assignment.
-1. Setup API service to collect dog breed data from the [dogs API](https://dog.ceo/dog-api/documentation/​).
+1. Setup API service to collect dog breed data from the [dogs API](https://dog.ceo/dog-api/documentation/).
 2. Count the total number of images per dog breed using the same API, and store results in the Redux store.
 3. Build a web application to show in a pie chart the top 10 breeds and their breakdown of total images stored overall.
 
